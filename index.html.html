@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Murder on Deck - Daily Mystery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .game-info {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .hints-section {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            min-height: 60px;
+        }
+
+        .hints-section h3 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .hint {
+            color: #856404;
+            font-style: italic;
+            margin: 5px 0;
+            padding: 8px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 5px;
+        }
+
+        .no-hints {
+            color: #856404;
+            font-style: italic;
+            opacity: 0.6;
+        }
+
+        .selection-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1e3c72;
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #1e3c72;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #1e3c72;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #2a5298;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .guesses {
+            margin-top: 30px;
+        }
+
+        .guess-row {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #1e3c72;
+        }
+
+        .feedback {
+            font-weight: bold;
+            color: #1e3c72;
+            margin-top: 5px;
+        }
+
+        .result {
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            font-size: 1.2em;
+        }
+
+        .result.win {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .result.lose {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .share-button {
+            background: #28a745;
+            margin-top: 10px;
+        }
+
+        .share-button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚓ Murder on Deck</h1>
+        <p class="subtitle">A Daily Cruise Ship Mystery</p>
+        
+        <div class="game-info">
+            <p><strong>Puzzle #<span id="puzzleNumber">1</span></strong></p>
+            <p>Guess the murderer, location, and weapon!</p>
+            <p>Guesses remaining: <span id="guessesLeft">10</span>/10</p>
+        </div>
+
+        <div class="hints-section">
+            <h3>🔍 Cryptic Hints:</h3>
+            <div id="hintsDisplay" class="no-hints">Hints unlock after guesses 3, 6, and 9...</div>
+        </div>
+
+        <div id="gameArea">
+            <div class="selection-group">
+                <label for="character">Select Character:</label>
+                <select id="character">
+                    <option value="">Choose...</option>
+                    <option value="Captain">The Captain</option>
+                    <option value="Entertainer">The Entertainer</option>
+                    <option value="Chef">The Chef</option>
+                    <option value="Bartender">The Bartender</option>
+                    <option value="Passenger">The Passenger</option>
+                    <option value="Crew">The Crew Member</option>
+                </select>
+            </div>
+
+            <div class="selection-group">
+                <label for="location">Select Location:</label>
+                <select id="location">
+                    <option value="">Choose...</option>
+                    <option value="Pool">Pool Deck</option>
+                    <option value="Casino">Casino</option>
+                    <option value="Theater">Theater</option>
+                    <option value="Kitchen">Kitchen</option>
+                    <option value="Engine">Engine Room</option>
+                    <option value="Quarters">Captain's Quarters</option>
+                    <option value="Lifeboat">Lifeboat Station</option>
+                    <option value="Bar">Bar</option>
+                    <option value="Cabin">Cabin</option>
+                </select>
+            </div>
+
+            <div class="selection-group">
+                <label for="weapon">Select Weapon:</label>
+                <select id="weapon">
+                    <option value="">Choose...</option>
+                    <option value="Anchor">Anchor</option>
+                    <option value="Rope">Rope</option>
+                    <option value="Preserver">Life Preserver</option>
+                    <option value="Bottle">Champagne Bottle</option>
+                    <option value="Chair">Deck Chair</option>
+                    <option value="Flare">Flare Gun</option>
+                </select>
+            </div>
+
+            <button id="submitGuess">Submit Guess</button>
+        </div>
+
+        <div class="guesses" id="guessList"></div>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Game data
+        const characters = ['Captain', 'Entertainer', 'Chef', 'Bartender', 'Passenger', 'Crew'];
+        const locations = ['Pool', 'Casino', 'Theater', 'Kitchen', 'Engine', 'Quarters', 'Lifeboat', 'Bar', 'Cabin'];
+        const weapons = ['Anchor', 'Rope', 'Preserver', 'Bottle', 'Chair', 'Flare'];
+
+        // Hint definitions
+        const characterHints = {
+            'Captain': 'Authority',
+            'Entertainer': 'Performer',
+            'Chef': 'Culinary',
+            'Bartender': 'Spirits',
+            'Passenger': 'Traveler',
+            'Crew': 'Worker'
+        };
+
+        const locationHints = {
+            'Pool': 'Aquatic',
+            'Casino': 'Fortune',
+            'Theater': 'Stage',
+            'Kitchen': 'Galley',
+            'Engine': 'Mechanical',
+            'Quarters': 'Private',
+            'Lifeboat': 'Emergency',
+            'Bar': 'Libations',
+            'Cabin': 'Quarters'
+        };
+
+        const weaponHints = {
+            'Anchor': 'Heavy metal',
+            'Rope': 'Binding',
+            'Preserver': 'Ironic safety',
+            'Bottle': 'Celebration',
+            'Chair': 'Furniture',
+            'Flare': 'Signal'
+        };
+
+        // Generate daily puzzle
+        function getDailyPuzzle() {
+            const today = new Date();
+            const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+            
+            function seededRandom(max, offset = 0) {
+                const x = Math.sin(seed + offset) * 10000;
+                return Math.floor((x - Math.floor(x)) * max);
+            }
+
+            return {
+                character: characters[seededRandom(characters.length)],
+                location: locations[seededRandom(locations.length, 1)],
+                weapon: weapons[seededRandom(weapons.length, 2)]
+            };
+        }
+
+        // Calculate puzzle number
+        function getPuzzleNumber() {
+            const start = new Date('2026-01-01');
+            const today = new Date();
+            const diff = today - start;
+            return Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
+        }
+
+        // Game state
+        let answer = getDailyPuzzle();
+        let guesses = [];
+        let maxGuesses = 10;
+        let gameOver = false;
+        let unlockedHints = [];
+
+        // Display puzzle number
+        document.getElementById('puzzleNumber').textContent = getPuzzleNumber();
+
+        // Submit guess
+        document.getElementById('submitGuess').addEventListener('click', function() {
+            if (gameOver) return;
+
+            const character = document.getElementById('character').value;
+            const location = document.getElementById('location').value;
+            const weapon = document.getElementById('weapon').value;
+
+            if (!character || !location || !weapon) {
+                alert('Please select all three options!');
+                return;
+            }
+
+            // Check guess
+            let correct = 0;
+            if (character === answer.character) correct++;
+            if (location === answer.location) correct++;
+            if (weapon === answer.weapon) correct++;
+
+            // Add guess to list
+            guesses.push({ character, location, weapon, correct });
+            
+            // Update display
+            updateGuesses();
+            updateGuessesLeft();
+
+            // Check for hint unlocks
+            if (guesses.length === 3) {
+                unlockHint('character');
+            } else if (guesses.length === 6) {
+                unlockHint('location');
+            } else if (guesses.length === 9) {
+                unlockHint('weapon');
+            }
+
+            // Check win/lose
+            if (correct === 3) {
+                endGame(true);
+            } else if (guesses.length >= maxGuesses) {
+                endGame(false);
+            }
+
+            // Reset selections
+            document.getElementById('character').value = '';
+            document.getElementById('location').value = '';
+            document.getElementById('weapon').value = '';
+        });
+
+        function unlockHint(type) {
+            let hint = '';
+            if (type === 'character') {
+                hint = `Character: "${characterHints[answer.character]}"`;
+            } else if (type === 'location') {
+                hint = `Location: "${locationHints[answer.location]}"`;
+            } else if (type === 'weapon') {
+                hint = `Weapon: "${weaponHints[answer.weapon]}"`;
+            }
+            
+            unlockedHints.push(hint);
+            updateHints();
+        }
+
+        function updateHints() {
+            const hintsDisplay = document.getElementById('hintsDisplay');
+            if (unlockedHints.length === 0) {
+                hintsDisplay.className = 'no-hints';
+                hintsDisplay.textContent = 'Hints unlock after guesses 3, 6, and 9...';
+            } else {
+                hintsDisplay.className = '';
+                hintsDisplay.innerHTML = unlockedHints.map(h => `<div class="hint">${h}</div>`).join('');
+            }
+        }
+
+        function updateGuesses() {
+            const list = document.getElementById('guessList');
+            list.innerHTML = '<h3>Your Guesses:</h3>';
+            
+            guesses.forEach((guess, index) => {
+                const row = document.createElement('div');
+                row.className = 'guess-row';
+                row.innerHTML = `
+                    <strong>Guess ${index + 1}:</strong> ${guess.character}, ${guess.location}, ${guess.weapon}
+                    <div class="feedback">${guess.correct}/3 correct</div>
+                `;
+                list.appendChild(row);
+            });
+        }
+
+        function updateGuessesLeft() {
+            document.getElementById('guessesLeft').textContent = maxGuesses - guesses.length;
+        }
+
+        function endGame(won) {
+            gameOver = true;
+            document.getElementById('gameArea').style.display = 'none';
+            
+            const result = document.getElementById('result');
+            result.className = won ? 'result win' : 'result lose';
+            
+            if (won) {
+                result.innerHTML = `
+                    <h2>🎉 Case Solved!</h2>
+                    <p>You solved it in ${guesses.length}/${maxGuesses} guesses!</p>
+                    <p><strong>Answer:</strong> ${answer.character} in the ${answer.location} with the ${answer.weapon}</p>
+                    <button class="share-button" onclick="shareResult()">Share Result</button>
+                `;
+            } else {
+                result.innerHTML = `
+                    <h2>Case Unsolved</h2>
+                    <p>Better luck tomorrow!</p>
+                    <p><strong>Answer:</strong> ${answer.character} in the ${answer.location} with the ${answer.weapon}</p>
+                    <button class="share-button" onclick="shareResult()">Share Result</button>
+                `;
+            }
+        }
+
+        function shareResult() {
+            const puzzleNum = getPuzzleNumber();
+            const won = guesses.length > 0 && guesses[guesses.length - 1].correct === 3;
+            
+            let text = `🔍 Murder on Deck #${puzzleNum} ${won ? guesses.length : 'X'}/${maxGuesses}\n\n`;
+            
+            guesses.forEach(guess => {
+                const squares = guess.correct === 3 ? '🟩🟩🟩' : 
+                               guess.correct === 2 ? '🟨🟨⬛' :
+                               guess.correct === 1 ? '🟨⬛⬛' : '⬛⬛⬛';
+                text += squares + ` ${guess.correct}/3\n`;
+            });
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Result copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>
