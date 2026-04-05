@@ -262,6 +262,26 @@
             color: #721c24;
         }
 
+        .story-section {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .story-section h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .story-section p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
         .share-button {
             background: #28a745;
             margin-top: 10px;
@@ -385,36 +405,167 @@
         const locations = ['Pool', 'Casino', 'Theater', 'Kitchen', 'Engine', 'Quarters', 'Lifeboat', 'Bar', 'Cabin'];
         const weapons = ['Anchor', 'Rope', 'Preserver', 'Bottle', 'Chair', 'Flare'];
 
-        // Hint definitions
+        // MORE CRYPTIC hint definitions
         const characterHints = {
-            'Captain': 'Authority',
-            'Entertainer': 'Performer',
-            'Chef': 'Culinary',
-            'Bartender': 'Spirits',
-            'Passenger': 'Traveler',
-            'Crew': 'Worker'
+            'Captain': 'The one who steers',
+            'Entertainer': 'Brings joy to crowds',
+            'Chef': 'Master of flavors',
+            'Bartender': 'Mixer of spirits',
+            'Passenger': 'Paid for passage',
+            'Crew': 'Follows orders'
         };
 
         const locationHints = {
-            'Pool': 'Aquatic',
-            'Casino': 'Fortune',
-            'Theater': 'Stage',
-            'Kitchen': 'Galley',
-            'Engine': 'Mechanical',
-            'Quarters': 'Private',
-            'Lifeboat': 'Emergency',
-            'Bar': 'Libations',
-            'Cabin': 'Quarters'
+            'Pool': 'Where water reflects sky',
+            'Casino': 'Fortune changes here',
+            'Theater': 'Applause echoes',
+            'Kitchen': 'Heat and steel',
+            'Engine': 'The ship\'s heart',
+            'Quarters': 'Private sanctuary',
+            'Lifeboat': 'Last resort',
+            'Bar': 'Liquid courage flows',
+            'Cabin': 'Rest for travelers'
         };
 
         const weaponHints = {
-            'Anchor': 'Heavy metal',
-            'Rope': 'Binding',
-            'Preserver': 'Ironic safety',
-            'Bottle': 'Celebration',
-            'Chair': 'Furniture',
-            'Flare': 'Signal'
+            'Anchor': 'Holds ships steady',
+            'Rope': 'Binds and secures',
+            'Preserver': 'Meant to save',
+            'Bottle': 'For celebration',
+            'Chair': 'Meant for rest',
+            'Flare': 'Signals distress'
         };
+
+        // Story fragments for template-based generation
+        const storyFragments = {
+            characterMotives: {
+                'Captain': ['concealing years of embezzlement', 'protecting a dangerous secret', 'eliminating a blackmailer', 'covering up a past crime'],
+                'Entertainer': ['silencing a critic who knew too much', 'jealous rage over stolen spotlight', 'desperate to hide a scandal', 'revenge for a ruined career'],
+                'Chef': ['hiding evidence of food poisoning', 'rage over stolen recipes', 'protecting illegal activities', 'settling an old grudge'],
+                'Bartender': ['years of mistreatment boiled over', 'discovered theft and retaliated', 'protecting a smuggling operation', 'revenge for betrayal'],
+                'Passenger': ['panic when confronted about identity', 'desperate to recover stolen property', 'eliminating a witness', 'protecting family secrets'],
+                'Crew': ['following dark orders', 'fear of exposure', 'defending stolen goods', 'silencing someone who knew too much']
+            },
+            locationContexts: {
+                'Pool': ['during the evening swim', 'while the deck was empty', 'under cover of splashing water', 'as midnight approached'],
+                'Casino': ['during a high-stakes game', 'amid celebration and chaos', 'when chips were down', 'in a moment of desperate loss'],
+                'Theater': ['during the evening performance', 'backstage in shadows', 'as the crowd applauded', 'between acts'],
+                'Kitchen': ['during dinner service chaos', 'when the kitchen was closed', 'amid steam and fire', 'in the early morning hours'],
+                'Engine': ['during routine inspection', 'in the deafening noise', 'where no one could hear screams', 'in the mechanical darkness'],
+                'Quarters': ['behind locked doors', 'where privacy was expected', 'in a false sense of security', 'during a private meeting'],
+                'Lifeboat': ['in preparation for drill', 'under the guise of inspection', 'where escape seemed possible', 'in desperate planning'],
+                'Bar': ['after closing time', 'during the rowdy evening rush', 'over shared drinks', 'when inhibitions were lowered'],
+                'Cabin': ['in supposed safety', 'during late night hours', 'where no help could arrive', 'behind a locked door']
+            },
+            weaponMethods: {
+                'Anchor': ['struck with brutal force', 'used the heavy iron weight', 'brought down with deadly intent', 'wielded in desperate rage'],
+                'Rope': ['bound and silenced forever', 'strangled in the shadows', 'used the ship\'s rope with deadly skill', 'turned a tool into a weapon'],
+                'Preserver': ['ironic salvation turned fatal', 'used what should save to destroy', 'turned safety equipment deadly', 'weaponized false hope'],
+                'Bottle': ['shattered in violence', 'struck with the champagne bottle', 'celebration turned to tragedy', 'glass became a deadly edge'],
+                'Chair': ['wielded the deck furniture', 'struck from behind', 'turned comfort into weapon', 'brought down with crushing force'],
+                'Flare': ['used emergency equipment', 'turned distress signal deadly', 'fired at point-blank range', 'misused the safety device']
+            }
+        };
+
+        // Generate story based on solution
+        function generateStory(character, location, weapon) {
+            // Seed random based on combination for consistency
+            const seed = (characters.indexOf(character) * 100) + 
+                         (locations.indexOf(location) * 10) + 
+                         weapons.indexOf(weapon);
+            
+            function seededRandom(max, offset = 0) {
+                const x = Math.sin(seed + offset) * 10000;
+                return Math.floor((x - Math.floor(x)) * max);
+            }
+
+            const motive = storyFragments.characterMotives[character][
+                seededRandom(storyFragments.characterMotives[character].length, 1)
+            ];
+            const context = storyFragments.locationContexts[location][
+                seededRandom(storyFragments.locationContexts[location].length, 2)
+            ];
+            const method = storyFragments.weaponMethods[weapon][
+                seededRandom(storyFragments.weaponMethods[weapon].length, 3)
+            ];
+
+            const locationName = locations.indexOf(location) !== -1 ? 
+                document.querySelector(`#location option[value="${location}"]`).textContent : location;
+
+            return `The ${character} committed murder at the ${locationName} using the ${weapon}. 
+                    The motive: ${motive}. The crime occurred ${context}, where the ${character} 
+                    ${method}. The body was discovered shortly after, and the investigation began.`;
+        }
+
+        // Generate daily puzzle
+        function getDailyPuzzle() {
+            const today = new Date();
+            const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+            
+            function seededRandom(max, offset = 0) {
+                const x = Math.sin(seed + offset) * 10000;
+                return Math.floor((x - Math.floor(x)) * max);
+            }
+
+            return {
+                character: characters[seededRandom(characters.length)],
+                location: locations[seededRandom(locations.length, 1)],
+                weapon: weapons[seededRandom(weapons.length, 2)]
+            };
+        }
+
+        // Calculate puzzle number
+        function getPuzzleNumber() {
+            const start = new Date('2026-01-01');
+            const today = new Date();
+            const diff = today - start;
+            return Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
+        }
+
+        // Check if already played today
+        function hasPlayedToday() {
+            const stats = getStats();
+            return stats.lastPlayed === getPuzzleNumber();
+        }
+
+        // Game state
+        let answer = getDailyPuzzle();
+        let guesses = [];
+        let maxGuesses = 10;
+        let gameOver = hasPlayedToday();
+        let unlockedHints = [];
+        let hintOrder = []; // Will store randomized hint order
+
+        // Generate random hint order at start
+        function generateHintOrder() {
+            const categories = ['character', 'location', 'weapon'];
+            const seed = getPuzzleNumber();
+            
+            // Shuffle categories based on daily seed
+            for (let i = categories.length - 1; i > 0; i--) {
+                const x = Math.sin(seed + i) * 10000;
+                const j = Math.floor((x - Math.floor(x)) * (i + 1));
+                [categories[i], categories[j]] = [categories[j], categories[i]];
+            }
+            
+            return categories;
+        }
+
+        hintOrder = generateHintOrder();
+
+        // Display puzzle number
+        document.getElementById('puzzleNumber').textContent = getPuzzleNumber();
+
+        // Check if already played
+        if (gameOver) {
+            document.getElementById('gameArea').style.display = 'none';
+            document.getElementById('result').className = 'result';
+            document.getElementById('result').innerHTML = `
+                <h2>Already Played Today!</h2>
+                <p>Come back tomorrow for a new mystery.</p>
+                <button class="share-button" onclick="showStats()">View Statistics</button>
+            `;
+        }
 
         // Statistics functions
         function getStats() {
@@ -498,58 +649,6 @@
             document.getElementById('statsModal').style.display = 'none';
         }
 
-        // Generate daily puzzle
-        function getDailyPuzzle() {
-            const today = new Date();
-            const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-            
-            function seededRandom(max, offset = 0) {
-                const x = Math.sin(seed + offset) * 10000;
-                return Math.floor((x - Math.floor(x)) * max);
-            }
-
-            return {
-                character: characters[seededRandom(characters.length)],
-                location: locations[seededRandom(locations.length, 1)],
-                weapon: weapons[seededRandom(weapons.length, 2)]
-            };
-        }
-
-        // Calculate puzzle number
-        function getPuzzleNumber() {
-            const start = new Date('2026-01-01');
-            const today = new Date();
-            const diff = today - start;
-            return Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
-        }
-
-        // Check if already played today
-        function hasPlayedToday() {
-            const stats = getStats();
-            return stats.lastPlayed === getPuzzleNumber();
-        }
-
-        // Game state
-        let answer = getDailyPuzzle();
-        let guesses = [];
-        let maxGuesses = 10;
-        let gameOver = hasPlayedToday();
-        let unlockedHints = [];
-
-        // Display puzzle number
-        document.getElementById('puzzleNumber').textContent = getPuzzleNumber();
-
-        // Check if already played
-        if (gameOver) {
-            document.getElementById('gameArea').style.display = 'none';
-            document.getElementById('result').className = 'result';
-            document.getElementById('result').innerHTML = `
-                <h2>Already Played Today!</h2>
-                <p>Come back tomorrow for a new mystery.</p>
-                <button class="share-button" onclick="showStats()">View Statistics</button>
-            `;
-        }
-
         // Submit guess
         document.getElementById('submitGuess').addEventListener('click', function() {
             if (gameOver) return;
@@ -576,13 +675,13 @@
             updateGuesses();
             updateGuessesLeft();
 
-            // Check for hint unlocks
+            // Check for hint unlocks - USE RANDOM ORDER
             if (guesses.length === 3) {
-                unlockHint('character');
+                unlockHint(hintOrder[0]); // First random hint
             } else if (guesses.length === 6) {
-                unlockHint('location');
+                unlockHint(hintOrder[1]); // Second random hint
             } else if (guesses.length === 9) {
-                unlockHint('weapon');
+                unlockHint(hintOrder[2]); // Third random hint
             }
 
             // Check win/lose
@@ -600,15 +699,20 @@
 
         function unlockHint(type) {
             let hint = '';
+            let category = '';
+            
             if (type === 'character') {
-                hint = `Character: "${characterHints[answer.character]}"`;
+                hint = characterHints[answer.character];
+                category = 'Character';
             } else if (type === 'location') {
-                hint = `Location: "${locationHints[answer.location]}"`;
+                hint = locationHints[answer.location];
+                category = 'Location';
             } else if (type === 'weapon') {
-                hint = `Weapon: "${weaponHints[answer.weapon]}"`;
+                hint = weaponHints[answer.weapon];
+                category = 'Weapon';
             }
             
-            unlockedHints.push(hint);
+            unlockedHints.push(`${category}: "${hint}"`);
             updateHints();
         }
 
@@ -650,11 +754,17 @@
             const result = document.getElementById('result');
             result.className = won ? 'result win' : 'result lose';
             
+            // Generate the murder story
+            const story = generateStory(answer.character, answer.location, answer.weapon);
+            
             if (won) {
                 result.innerHTML = `
                     <h2>🎉 Case Solved!</h2>
                     <p>You solved it in ${guesses.length}/${maxGuesses} guesses!</p>
-                    <p><strong>Answer:</strong> ${answer.character} in the ${answer.location} with the ${answer.weapon}</p>
+                    <div class="story-section">
+                        <h3>📖 What Happened</h3>
+                        <p>${story}</p>
+                    </div>
                     <button class="share-button" onclick="shareResult()">Share Result</button>
                     <button class="share-button" onclick="showStats()">View Statistics</button>
                 `;
@@ -663,6 +773,10 @@
                     <h2>Case Unsolved</h2>
                     <p>Better luck tomorrow!</p>
                     <p><strong>Answer:</strong> ${answer.character} in the ${answer.location} with the ${answer.weapon}</p>
+                    <div class="story-section">
+                        <h3>📖 What Actually Happened</h3>
+                        <p>${story}</p>
+                    </div>
                     <button class="share-button" onclick="shareResult()">Share Result</button>
                     <button class="share-button" onclick="showStats()">View Statistics</button>
                 `;
