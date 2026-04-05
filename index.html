@@ -277,9 +277,10 @@
         }
 
         .story-section p {
-            line-height: 1.6;
-            margin-bottom: 10px;
+            line-height: 1.8;
+            margin-bottom: 15px;
             color: #333;
+            white-space: pre-line;
         }
 
         .share-button {
@@ -459,17 +460,16 @@
             },
             weaponMethods: {
                 'Anchor': ['struck with brutal force', 'used the heavy iron weight', 'brought down with deadly intent', 'wielded in desperate rage'],
-                'Rope': ['bound and silenced forever', 'strangled in the shadows', 'used the ship\'s rope with deadly skill', 'turned a tool into a weapon'],
-                'Preserver': ['ironic salvation turned fatal', 'used what should save to destroy', 'turned safety equipment deadly', 'weaponized false hope'],
-                'Bottle': ['shattered in violence', 'struck with the champagne bottle', 'celebration turned to tragedy', 'glass became a deadly edge'],
-                'Chair': ['wielded the deck furniture', 'struck from behind', 'turned comfort into weapon', 'brought down with crushing force'],
-                'Flare': ['used emergency equipment', 'turned distress signal deadly', 'fired at point-blank range', 'misused the safety device']
+                'Rope': ['bound and silenced the victim forever', 'strangled in the shadows', 'used the ship\'s rope with deadly skill', 'turned a tool into a weapon'],
+                'Preserver': ['turned salvation into death', 'used what should save to destroy', 'weaponized the safety equipment', 'brought ironic justice'],
+                'Bottle': ['shattered glass became the weapon', 'struck with the champagne bottle', 'turned celebration to tragedy', 'used the bottle with violent force'],
+                'Chair': ['wielded the deck furniture as a weapon', 'struck from behind without warning', 'turned comfort into destruction', 'brought down with crushing force'],
+                'Flare': ['misused the emergency equipment', 'turned the distress signal deadly', 'fired at point-blank range', 'weaponized the safety device']
             }
         };
 
-        // Generate story based on solution
+        // IMPROVED: Generate story based on solution
         function generateStory(character, location, weapon) {
-            // Seed random based on combination for consistency
             const seed = (characters.indexOf(character) * 100) + 
                          (locations.indexOf(location) * 10) + 
                          weapons.indexOf(weapon);
@@ -489,12 +489,19 @@
                 seededRandom(storyFragments.weaponMethods[weapon].length, 3)
             ];
 
-            const locationName = locations.indexOf(location) !== -1 ? 
-                document.querySelector(`#location option[value="${location}"]`).textContent : location;
+            const locationName = document.querySelector(`#location option[value="${location}"]`).textContent;
+            const weaponName = document.querySelector(`#weapon option[value="${weapon}"]`).textContent;
 
-            return `The ${character} committed murder at the ${locationName} using the ${weapon}. 
-                    The motive: ${motive}. The crime occurred ${context}, where the ${character} 
-                    ${method}. The body was discovered shortly after, and the investigation began.`;
+            // More natural story structure
+            const story = `The ${character} was driven by a dark purpose: ${motive}.
+
+The opportunity came ${context}. There, in the ${locationName}, the ${character} acted.
+
+The murder weapon was the ${weaponName}. The ${character} ${method}, leaving no chance for escape.
+
+When the body was discovered, the investigation began. But by then, it was already too late.`;
+            
+            return story;
         }
 
         // Generate daily puzzle
