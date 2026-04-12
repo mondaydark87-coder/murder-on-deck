@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><head>
-       <meta charset="UTF-8">
+    <meta charset="UTF-8">
        
        <!-- Google tag (gtag.js) -->
        <script async src="https://www.googletagmanager.com/gtag/js?id=G-48FYND8BQM"></script>
@@ -14,7 +13,6 @@
        </script>
        
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Murder on Deck - Daily Mystery</title>
     <style>
         * {
@@ -328,12 +326,12 @@
                 <label for="character">Select Character:</label>
                 <select id="character">
                     <option value="">Choose...</option>
-                    <option value="Captain">The Captain</option>
-                    <option value="Entertainer">The Entertainer</option>
-                    <option value="Chef">The Chef</option>
-                    <option value="Bartender">The Bartender</option>
-                    <option value="Passenger">The Passenger</option>
-                    <option value="Crew">The Crew Member</option>
+                    <option value="Captain Sterling">Captain Sterling</option>
+                    <option value="Chef Marco">Chef Marco</option>
+                    <option value="Dr. Hayes">Dr. Hayes</option>
+                    <option value="Entertainer Luna">Entertainer Luna</option>
+                    <option value="Security Chief Ramos">Security Chief Ramos</option>
+                    <option value="Passenger Blake">Passenger Blake</option>
                 </select>
             </div>
 
@@ -341,15 +339,12 @@
                 <label for="location">Select Location:</label>
                 <select id="location">
                     <option value="">Choose...</option>
-                    <option value="Pool">Pool Deck</option>
-                    <option value="Casino">Casino</option>
                     <option value="Theater">Theater</option>
-                    <option value="Kitchen">Kitchen</option>
-                    <option value="Engine">Engine Room</option>
-                    <option value="Quarters">Captain's Quarters</option>
-                    <option value="Lifeboat">Lifeboat Station</option>
-                    <option value="Bar">Bar</option>
-                    <option value="Cabin">Cabin</option>
+                    <option value="Pool Deck">Pool Deck</option>
+                    <option value="Dining Hall">Dining Hall</option>
+                    <option value="Engine Room">Engine Room</option>
+                    <option value="Cabin 237">Cabin 237</option>
+                    <option value="Bridge">Bridge</option>
                 </select>
             </div>
 
@@ -357,12 +352,12 @@
                 <label for="weapon">Select Weapon:</label>
                 <select id="weapon">
                     <option value="">Choose...</option>
-                    <option value="Anchor">Anchor</option>
+                    <option value="Poison">Poison</option>
+                    <option value="Knife">Knife</option>
                     <option value="Rope">Rope</option>
-                    <option value="Preserver">Life Preserver</option>
-                    <option value="Bottle">Champagne Bottle</option>
-                    <option value="Chair">Deck Chair</option>
-                    <option value="Flare">Flare Gun</option>
+                    <option value="Candlestick">Candlestick</option>
+                    <option value="Wrench">Wrench</option>
+                    <option value="Revolver">Revolver</option>
                 </select>
             </div>
 
@@ -413,74 +408,139 @@
     </div>
 
     <script>
-        // Game data
-        const characters = ['Captain', 'Entertainer', 'Chef', 'Bartender', 'Passenger', 'Crew'];
-        const locations = ['Pool', 'Casino', 'Theater', 'Kitchen', 'Engine', 'Quarters', 'Lifeboat', 'Bar', 'Cabin'];
-        const weapons = ['Anchor', 'Rope', 'Preserver', 'Bottle', 'Chair', 'Flare'];
+        // Game data - updated characters, locations, weapons
+        const characters = ['Captain Sterling', 'Chef Marco', 'Dr. Hayes', 'Entertainer Luna', 'Security Chief Ramos', 'Passenger Blake'];
+        const locations = ['Theater', 'Pool Deck', 'Dining Hall', 'Engine Room', 'Cabin 237', 'Bridge'];
+        const weapons = ['Poison', 'Knife', 'Rope', 'Candlestick', 'Wrench', 'Revolver'];
 
-        // MORE CRYPTIC hint definitions
-        const characterHints = {
-            'Captain': 'The one who steers',
-            'Entertainer': 'Brings joy to crowds',
-            'Chef': 'Master of flavors',
-            'Bartender': 'Mixer of spirits',
-            'Passenger': 'Paid for passage',
-            'Crew': 'Follows orders'
-        };
-
-        const locationHints = {
-            'Pool': 'Where water reflects sky',
-            'Casino': 'Fortune changes here',
-            'Theater': 'Applause echoes',
-            'Kitchen': 'Heat and steel',
-            'Engine': 'The ship\'s heart',
-            'Quarters': 'Private sanctuary',
-            'Lifeboat': 'Last resort',
-            'Bar': 'Liquid courage flows',
-            'Cabin': 'Rest for travelers'
-        };
-
-        const weaponHints = {
-            'Anchor': 'Holds ships steady',
-            'Rope': 'Binds and secures',
-            'Preserver': 'Meant to save',
-            'Bottle': 'For celebration',
-            'Chair': 'Meant for rest',
-            'Flare': 'Signals distress'
+        // CHANGE #3: REMOVED CATEGORY LABELS - MUCH HARDER CRYPTIC HINTS
+        const crypticHints = {
+            // Character hints - more cryptic and vague
+            'Captain Sterling': [
+                "Authority wears many masks at sea",
+                "The helm's keeper guards more than course",
+                "Where command meets conscience, shadows form"
+            ],
+            'Chef Marco': [
+                "Spices hide more than flavor in skilled hands",
+                "The galley's master knows hunger takes many forms",
+                "Sustenance and secrets simmer together"
+            ],
+            'Dr. Hayes': [
+                "Healing hands can harm when oaths are broken",
+                "Medicine's keeper walks between life and void",
+                "The caduceus points in two directions"
+            ],
+            'Entertainer Luna': [
+                "Masks worn on stage sometimes never come off",
+                "Applause drowns many sounds, including truth",
+                "The spotlight casts the deepest shadows"
+            ],
+            'Security Chief Ramos': [
+                "Those who watch the watchers see the most",
+                "Protection and predation share the same stance",
+                "Vigilance conceals as much as it reveals"
+            ],
+            'Passenger Blake': [
+                "Ordinary faces hide extraordinary motives",
+                "The paying guest's cabin locks from both sides",
+                "Anonymity is the traveler's sharpest weapon"
+            ],
+            
+            // Location hints - more mysterious
+            'Theater': [
+                "Where pretense becomes performance, truth takes final bow",
+                "The stage remembers every act, especially the last",
+                "Curtains fall on more than shows in this space"
+            ],
+            'Pool Deck': [
+                "Reflections ripple with more than water here",
+                "The surface hides depths both literal and dark",
+                "Where leisure meets the ledge of forever"
+            ],
+            'Dining Hall': [
+                "The feast continues even when appetite dies",
+                "Crystal and silver witness silent screams",
+                "Breaking bread, breaking trust—same table"
+            ],
+            'Engine Room': [
+                "The ship's heartbeat drowns out other endings",
+                "Machinery's rhythm masks irregular patterns",
+                "Where power flows, life sometimes ebbs"
+            ],
+            'Cabin 237': [
+                "Privacy's price is paid in witnesses",
+                "Four walls keep secrets better than confessionals",
+                "The threshold between sanctuary and tomb"
+            ],
+            'Bridge': [
+                "Where direction is decided, misdirection lives",
+                "The ship's brain sees all, reveals nothing",
+                "Navigation's tools point to more than North"
+            ],
+            
+            // Weapon hints - more poetic and obscure
+            'Poison': [
+                "Patience in a vial, bitter on the tongue",
+                "The silent envoy carries whispered death",
+                "What the body welcomes becomes betrayal"
+            ],
+            'Knife': [
+                "The oldest argument, sharp and to the point",
+                "Steel's edge writes in crimson ink",
+                "Intimacy's distance measured in inches of blade"
+            ],
+            'Rope': [
+                "Binding becomes unbinding in skilled hands",
+                "What holds ships steady can still the breath",
+                "Fiber's final embrace leaves lasting marks"
+            ],
+            'Candlestick': [
+                "Illumination's irony—darkness delivered by light",
+                "Beauty's weight becomes burden in anger's grip",
+                "Elegance and brutality share the same brass"
+            ],
+            'Wrench': [
+                "The fixer's tool fixes more than machines",
+                "What tightens bolts can loosen life's grip",
+                "Industry's instrument serves darker purposes"
+            ],
+            'Revolver': [
+                "Six chances, one certainty, no take-backs",
+                "The barrel's truth spoken in smoke and thunder",
+                "Distance and finality in gunmetal grey"
+            ]
         };
 
         // Story fragments for template-based generation
         const storyFragments = {
             characterMotives: {
-                'Captain': ['concealing years of embezzlement', 'protecting a dangerous secret', 'eliminating a blackmailer', 'covering up a past crime'],
-                'Entertainer': ['silencing a critic who knew too much', 'jealous rage over stolen spotlight', 'desperate to hide a scandal', 'revenge for a ruined career'],
-                'Chef': ['hiding evidence of food poisoning', 'rage over stolen recipes', 'protecting illegal activities', 'settling an old grudge'],
-                'Bartender': ['years of mistreatment boiled over', 'discovered theft and retaliated', 'protecting a smuggling operation', 'revenge for betrayal'],
-                'Passenger': ['panic when confronted about identity', 'desperate to recover stolen property', 'eliminating a witness', 'protecting family secrets'],
-                'Crew': ['following dark orders', 'fear of exposure', 'defending stolen goods', 'silencing someone who knew too much']
+                'Captain Sterling': ['concealing years of embezzlement', 'protecting a dangerous secret', 'eliminating a blackmailer', 'covering up a past crime'],
+                'Chef Marco': ['hiding evidence of food poisoning', 'rage over stolen recipes', 'protecting illegal activities', 'settling an old grudge'],
+                'Dr. Hayes': ['panic over malpractice discovery', 'silencing a blackmailer', 'covering up illegal prescriptions', 'revenge for professional betrayal'],
+                'Entertainer Luna': ['silencing a critic who knew too much', 'jealous rage over stolen spotlight', 'desperate to hide a scandal', 'revenge for a ruined career'],
+                'Security Chief Ramos': ['years of mistreatment boiled over', 'discovered theft and retaliated', 'protecting a smuggling operation', 'revenge for betrayal'],
+                'Passenger Blake': ['panic when confronted about identity', 'desperate to recover stolen property', 'eliminating a witness', 'protecting family secrets']
             },
             locationContexts: {
-                'Pool': ['during the evening swim', 'while the deck was empty', 'under cover of splashing water', 'as midnight approached'],
-                'Casino': ['during a high-stakes game', 'amid celebration and chaos', 'when chips were down', 'in a moment of desperate loss'],
                 'Theater': ['during the evening performance', 'backstage in shadows', 'as the crowd applauded', 'between acts'],
-                'Kitchen': ['during dinner service chaos', 'when the kitchen was closed', 'amid steam and fire', 'in the early morning hours'],
-                'Engine': ['during routine inspection', 'in the deafening noise', 'where no one could hear screams', 'in the mechanical darkness'],
-                'Quarters': ['behind locked doors', 'where privacy was expected', 'in a false sense of security', 'during a private meeting'],
-                'Lifeboat': ['in preparation for drill', 'under the guise of inspection', 'where escape seemed possible', 'in desperate planning'],
-                'Bar': ['after closing time', 'during the rowdy evening rush', 'over shared drinks', 'when inhibitions were lowered'],
-                'Cabin': ['in supposed safety', 'during late night hours', 'where no help could arrive', 'behind a locked door']
+                'Pool Deck': ['during the evening swim', 'while the deck was empty', 'under cover of splashing water', 'as midnight approached'],
+                'Dining Hall': ['during dinner service chaos', 'after the meal ended', 'amid celebration', 'when the hall emptied'],
+                'Engine Room': ['during routine inspection', 'in the deafening noise', 'where no one could hear screams', 'in the mechanical darkness'],
+                'Cabin 237': ['behind locked doors', 'where privacy was expected', 'in a false sense of security', 'during a private meeting'],
+                'Bridge': ['during the night shift', 'where navigation charts spread', 'in the command center', 'where decisions are made']
             },
             weaponMethods: {
-                'Anchor': ['struck with brutal force', 'used the heavy iron weight', 'brought down with deadly intent', 'wielded in desperate rage'],
+                'Poison': ['slipped into their drink', 'administered with deadly patience', 'delivered in what seemed safe', 'turned medicine into murder'],
+                'Knife': ['struck from the shadows', 'used with surgical precision', 'delivered swift and silent', 'left no time to scream'],
                 'Rope': ['bound and silenced the victim forever', 'strangled in the shadows', 'used the ship\'s rope with deadly skill', 'turned a tool into a weapon'],
-                'Preserver': ['turned salvation into death', 'used what should save to destroy', 'weaponized the safety equipment', 'brought ironic justice'],
-                'Bottle': ['shattered glass became the weapon', 'struck with the champagne bottle', 'turned celebration to tragedy', 'used the bottle with violent force'],
-                'Chair': ['wielded the deck furniture as a weapon', 'struck from behind without warning', 'turned comfort into destruction', 'brought down with crushing force'],
-                'Flare': ['misused the emergency equipment', 'turned the distress signal deadly', 'fired at point-blank range', 'weaponized the safety device']
+                'Candlestick': ['struck with the heavy brass', 'wielded in desperate rage', 'brought down without warning', 'turned decoration into destruction'],
+                'Wrench': ['used the heavy tool with brutal force', 'struck from behind', 'weaponized the mechanic\'s tool', 'delivered crushing blows'],
+                'Revolver': ['fired at point-blank range', 'the shot echoed through the ship', 'pulled the trigger without hesitation', 'six chambers, one bullet needed']
             }
         };
 
-        // IMPROVED: Generate story based on solution
+        // Generate story based on solution
         function generateStory(character, location, weapon) {
             const seed = (characters.indexOf(character) * 100) + 
                          (locations.indexOf(location) * 10) + 
@@ -501,15 +561,11 @@
                 seededRandom(storyFragments.weaponMethods[weapon].length, 3)
             ];
 
-            const locationName = document.querySelector(`#location option[value="${location}"]`).textContent;
-            const weaponName = document.querySelector(`#weapon option[value="${weapon}"]`).textContent;
+            const story = `${character} was driven by a dark purpose: ${motive}.
 
-            // More natural story structure
-            const story = `The ${character} was driven by a dark purpose: ${motive}.
+The opportunity came ${context}. There, in the ${location}, ${character} acted.
 
-The opportunity came ${context}. There, in the ${locationName}, the ${character} acted.
-
-The murder weapon was the ${weaponName}. The ${character} ${method}, leaving no chance for escape.
+The murder weapon was the ${weapon}. ${character} ${method}, leaving no chance for escape.
 
 When the body was discovered, the investigation began. But by then, it was already too late.`;
             
@@ -543,8 +599,8 @@ When the body was discovered, the investigation began. But by then, it was alrea
 
         // Check if already played today
         function hasPlayedToday() {
-            const stats = getStats();
-            return stats.lastPlayed === getPuzzleNumber();
+            const lastPlayed = localStorage.getItem('hasPlayedToday');
+            return lastPlayed && parseInt(lastPlayed) === getPuzzleNumber();
         }
 
         // Game state
@@ -553,21 +609,39 @@ When the body was discovered, the investigation began. But by then, it was alrea
         let maxGuesses = 10;
         let gameOver = hasPlayedToday();
         let unlockedHints = [];
-        let hintOrder = []; // Will store randomized hint order
+        let hintOrder = [];
 
         // Generate random hint order at start
         function generateHintOrder() {
-            const categories = ['character', 'location', 'weapon'];
-            const seed = getPuzzleNumber();
+            const allHints = [];
             
-            // Shuffle categories based on daily seed
-            for (let i = categories.length - 1; i > 0; i--) {
+            // Get 3 random hints for character
+            const charHints = crypticHints[answer.character];
+            allHints.push({ text: charHints[0], type: 'character' });
+            allHints.push({ text: charHints[1], type: 'character' });
+            allHints.push({ text: charHints[2], type: 'character' });
+            
+            // Get 3 random hints for location
+            const locHints = crypticHints[answer.location];
+            allHints.push({ text: locHints[0], type: 'location' });
+            allHints.push({ text: locHints[1], type: 'location' });
+            allHints.push({ text: locHints[2], type: 'location' });
+            
+            // Get 3 random hints for weapon
+            const weapHints = crypticHints[answer.weapon];
+            allHints.push({ text: weapHints[0], type: 'weapon' });
+            allHints.push({ text: weapHints[1], type: 'weapon' });
+            allHints.push({ text: weapHints[2], type: 'weapon' });
+            
+            // Shuffle based on daily seed
+            const seed = getPuzzleNumber();
+            for (let i = allHints.length - 1; i > 0; i--) {
                 const x = Math.sin(seed + i) * 10000;
                 const j = Math.floor((x - Math.floor(x)) * (i + 1));
-                [categories[i], categories[j]] = [categories[j], categories[i]];
+                [allHints[i], allHints[j]] = [allHints[j], allHints[i]];
             }
             
-            return categories;
+            return allHints;
         }
 
         hintOrder = generateHintOrder();
@@ -575,13 +649,19 @@ When the body was discovered, the investigation began. But by then, it was alrea
         // Display puzzle number
         document.getElementById('puzzleNumber').textContent = getPuzzleNumber();
 
-        // Check if already played
+        // CHANGE #1: FIX SHARE BUTTON - Check if already played and load saved data
         if (gameOver) {
+            showAlreadyPlayedScreen();
+        }
+
+        function showAlreadyPlayedScreen() {
             document.getElementById('gameArea').style.display = 'none';
-            document.getElementById('result').className = 'result';
-            document.getElementById('result').innerHTML = `
+            const result = document.getElementById('result');
+            result.className = 'result';
+            result.innerHTML = `
                 <h2>Already Played Today!</h2>
                 <p>Come back tomorrow for a new mystery.</p>
+                <button class="share-button" onclick="shareTodayResult()">Share Today's Result</button>
                 <button class="share-button" onclick="showStats()">View Statistics</button>
             `;
         }
@@ -694,13 +774,13 @@ When the body was discovered, the investigation began. But by then, it was alrea
             updateGuesses();
             updateGuessesLeft();
 
-            // Check for hint unlocks - USE RANDOM ORDER
+            // Check for hint unlocks
             if (guesses.length === 3) {
-                unlockHint(hintOrder[0]); // First random hint
+                unlockHint(0);
             } else if (guesses.length === 6) {
-                unlockHint(hintOrder[1]); // Second random hint
+                unlockHint(1);
             } else if (guesses.length === 9) {
-                unlockHint(hintOrder[2]); // Third random hint
+                unlockHint(2);
             }
 
             // Check win/lose
@@ -716,22 +796,10 @@ When the body was discovered, the investigation began. But by then, it was alrea
             document.getElementById('weapon').value = '';
         });
 
-        function unlockHint(type) {
-            let hint = '';
-            let category = '';
-            
-            if (type === 'character') {
-                hint = characterHints[answer.character];
-                category = 'Character';
-            } else if (type === 'location') {
-                hint = locationHints[answer.location];
-                category = 'Location';
-            } else if (type === 'weapon') {
-                hint = weaponHints[answer.weapon];
-                category = 'Weapon';
-            }
-            
-            unlockedHints.push(`${category}: "${hint}"`);
+        function unlockHint(index) {
+            // CHANGE #3: NO CATEGORY LABELS - just show the cryptic hint
+            const hint = hintOrder[index];
+            unlockedHints.push(`🔍 Cryptic Hint ${index + 1}: "${hint.text}"`);
             updateHints();
         }
 
@@ -768,6 +836,23 @@ When the body was discovered, the investigation began. But by then, it was alrea
         function endGame(won) {
             gameOver = true;
             updateStats(won, guesses.length);
+            localStorage.setItem('hasPlayedToday', getPuzzleNumber().toString());
+            
+            // CHANGE #1: SAVE PUZZLE RESULT FOR SHARING LATER
+            const guessPatterns = guesses.map(guess => {
+                return guess.correct === 3 ? '🟩🟩🟩' : 
+                       guess.correct === 2 ? '🟨🟨⬛' :
+                       guess.correct === 1 ? '🟨⬛⬛' : '⬛⬛⬛';
+            });
+            
+            localStorage.setItem('todayPuzzleResult', JSON.stringify({
+                puzzleNumber: getPuzzleNumber(),
+                won: won,
+                guesses: guesses.length,
+                patterns: guessPatterns,
+                date: new Date().toISOString().split('T')[0]
+            }));
+            
             document.getElementById('gameArea').style.display = 'none';
             
             const result = document.getElementById('result');
@@ -813,6 +898,38 @@ When the body was discovered, the investigation began. But by then, it was alrea
                                guess.correct === 2 ? '🟨🟨⬛' :
                                guess.correct === 1 ? '🟨⬛⬛' : '⬛⬛⬛';
                 text += squares + ` ${guess.correct}/3\n`;
+            });
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Result copied to clipboard!');
+            });
+        }
+
+        // CHANGE #1: NEW FUNCTION - Share today's result from localStorage
+        function shareTodayResult() {
+            const savedResult = localStorage.getItem('todayPuzzleResult');
+            const today = new Date().toISOString().split('T')[0];
+            
+            if (!savedResult) {
+                alert('No result found for today!');
+                return;
+            }
+            
+            const result = JSON.parse(savedResult);
+            
+            // Verify it's from today
+            if (result.date !== today) {
+                alert('No result found for today!');
+                return;
+            }
+            
+            let text = `🔍 Murder on Deck #${result.puzzleNumber} ${result.won ? result.guesses : 'X'}/${maxGuesses}\n\n`;
+            
+            result.patterns.forEach((pattern, index) => {
+                const correctCount = pattern === '🟩🟩🟩' ? 3 :
+                                   pattern === '🟨🟨⬛' ? 2 :
+                                   pattern === '🟨⬛⬛' ? 1 : 0;
+                text += pattern + ` ${correctCount}/3\n`;
             });
             
             navigator.clipboard.writeText(text).then(() => {
